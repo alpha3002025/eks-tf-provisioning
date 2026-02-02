@@ -1,0 +1,283 @@
+version: 3
+automerge: true
+projects:
+  - name: init/overtake
+    dir: terraform/init/overtake
+    workspace: default
+    terraform_version: 1.3.7
+    autoplan:
+      when_modified: [
+         "*.tf"
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: tf-plan-apply
+
+  - name: vpc/eksd_apnortheast2
+    dir: terraform/vpc/eksd_apnortheast2
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf",
+         "*.tfvars"
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: tf-plan-apply
+
+  - name: eks/eksd_apnortheast2/eksdapne2-hpyp ## 수정
+    dir: terraform/eks/eksd_apnortheast2/eksdapne2-hpyp ## 수정
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+        "../../_module/**", ## 수정 : eks 내의 모듈 변경시 eksdpan2-{클러스터명} 구성에도 변경되도록 지정
+         "*.tf",
+         "*.tfvars"
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: tf-plan-apply
+
+  # - name: iam/overtake
+  #   dir: terraform/iam/overtake
+  #   workspace: default
+  #   terraform_version: 1.7.0
+  #   autoplan:
+  #     when_modified: [
+  #        "*.tf"
+  #     ]
+  #     enabled: true
+  #   apply_requirements: []
+  #   workflow: tf-plan-apply    
+
+  # - name: kms/overtake/ap-northeast-2
+  #   dir: terraform/kms/overtake/ap-northeast-2
+  #   workspace: default
+  #   terraform_version: 1.7.0
+  #   autoplan:
+  #     when_modified: [
+  #        "*.tf"
+  #     ]
+  #     enabled: true
+  #   apply_requirements: []
+  #   workflow: tf-plan-apply  
+    
+  # - name: ssm/overtake/ap-northeast-2
+  #   dir: terraform/ssm/overtake/ap-northeast-2
+  #   workspace: default
+  #   terraform_version: 1.7.0
+  #   autoplan:
+  #     when_modified: [
+  #        "*.tf",
+  #        "secrets.sops.yaml"
+  #     ]
+  #     enabled: true
+  #   apply_requirements: []
+  #   workflow: tf-plan-apply
+
+  # - name: ecr/overtake/ap-northeast-2
+  #   dir: terraform/ecr/overtake/ap-northeast-2
+  #   workspace: default
+  #   terraform_version: 1.7.0
+  #   autoplan:
+  #     when_modified: [
+  #        "*.tf"
+  #     ]
+  #     enabled: true
+  #   apply_requirements: []
+  #   workflow: tf-plan-apply
+
+  # - name: securitygroup/overtake/tmcd_apnortheast2
+  #   dir: terraform/securitygroup/overtake/tmcd_apnortheast2
+  #   workspace: default
+  #   terraform_version: 1.7.0
+  #   autoplan:
+  #     when_modified: [
+  #        "*.tf",
+  #        "terraform.tfvars"
+  #     ]
+  #     enabled: true
+  #   apply_requirements: []
+  #   workflow: tf-plan-apply       
+
+  # - name: s3/overtake
+  #   dir: terraform/s3/overtake
+  #   workspace: default
+  #   terraform_version: 1.7.0
+  #   autoplan:
+  #     when_modified: [
+  #        "*.tf",
+  #        "terraform.tfvars",
+  #     ]
+  #     enabled: true
+  #   apply_requirements: []
+  #   workflow: tf-plan-apply
+
+  ### github
+  - name: github/app-sprinboot-helloworld
+    dir: github/app-sprinboot-helloworld
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf",
+         "*.yaml"
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: github  
+
+  - name: github/eks-tf-provisioning
+    dir: github/eks-tf-provisioning
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf",
+         "*.yaml"
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: github  
+
+  ### datadog
+  - name: datadog/integration
+    dir: datadog/integration
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf",
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: datadog  
+
+  - name: datadog/monitor
+    dir: datadog/monitor
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf",
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: datadog
+
+  - name: datadog/dashboard
+    dir: datadog/dashboard
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf",
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: datadog   
+  ### sumologic
+  - name: sumologic/collector
+    dir: sumologic/collector
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf"
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: sumologic  
+
+  - name: sumologic/partition
+    dir: sumologic/partition
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf"
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: sumologic
+
+  - name: sumologic/sources/vpcflow
+    dir: sumologic/sources/vpcflow
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf",
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: sumologic
+
+#### Workflows #####
+workflows:
+  tf-plan-apply:
+    plan:
+      steps:
+        - init:
+            extra_args: [
+              '-backend-config="role_arn=arn:aws:iam::533267446521:role/atlantis-overtake-admin"',
+              '-upgrade=false'
+            ]
+        - plan:
+            extra_args: [
+              "-var 'assume_role_arn=arn:aws:iam::533267446521:role/atlantis-overtake-admin'"
+            ]
+    apply:
+      steps:
+        - apply
+
+  # github
+  github:
+    plan:
+      steps:
+        - init:
+            extra_args: [
+              '-backend-config="role_arn=arn:aws:iam::533267446521:role/atlantis-overtake-admin"',
+              '-upgrade=false'
+            ]
+        - plan:
+            extra_args: [
+              "-var 'assume_role_arn=arn:aws:iam::533267446521:role/atlantis-overtake-admin'"
+            ]
+    apply:
+      steps:
+        - apply
+  # datadog
+  datadog:
+    plan:
+      steps:
+        - init:
+            extra_args: [
+              '-backend-config="role_arn=arn:aws:iam::533267446521:role/atlantis-overtake-admin"',
+              '-upgrade=false'
+            ]
+        - plan:
+            extra_args: [
+              "-var 'assume_role_arn=arn:aws:iam::533267446521:role/atlantis-overtake-admin'"
+            ]
+    apply:
+      steps:
+        - apply
+  # sumologic
+  sumologic:
+    plan:
+      steps:
+        - init:
+            extra_args: [
+              '-backend-config="role_arn=arn:aws:iam::533267446521:role/atlantis-overtake-admin"',
+              '-upgrade=false'
+            ]
+        - plan:
+            extra_args: [
+              "-var 'assume_role_arn=arn:aws:iam::533267446521:role/atlantis-overtake-admin'"
+            ]
+    apply:
+      steps:
+        - apply
