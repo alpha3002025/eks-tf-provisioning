@@ -70,5 +70,3 @@ variable "remote_state" {
     }
   }
 }
-
-##
