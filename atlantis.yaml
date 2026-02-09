@@ -12,6 +12,18 @@ projects:
       enabled: true
     apply_requirements: []
     workflow: tf-plan-apply ## (2)
+  - name: vpc/eksd_apnortheast2
+    dir: terraform/vpc/eksd_apnortheast2
+    workspace: default
+    terraform_version: 1.7.0
+    autoplan:
+      when_modified: [
+         "*.tf",
+         "*.tfvars"
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: tf-plan-apply
 
 #### Workflows #####
 workflows:
