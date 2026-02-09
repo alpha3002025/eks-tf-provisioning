@@ -27,18 +27,13 @@ variable "account_id" {
 variable "remote_state" {
   default = {
     # ## 추가
-    # vpc = {
-    #   eksd_apnortheast2 = {
-    #     bucket = "overtake-eks-apnortheast2-tfstate"
-    #     key    = "provisioning/terraform/vpc/eksd_apnortheast2/terraform.tfstate"
-    #     region = "ap-northeast-2"
-    #   }
-    #   prjd_apnortheast2 = {
-    #     bucket = "overtake-eks-apnortheast2-tfstate"
-    #     key    = "provisioning/terraform/vpc/prjd_apnortheast2/terraform.tfstate"
-    #     region = "ap-northeast-2"
-    #   }
-    # }
+    vpc = {
+      eksd_apnortheast2 = {
+        bucket = "overtake-eks-apnortheast2-tfstate"
+        key    = "provisioning/terraform/vpc/eksd_apnortheast2/terraform.tfstate"
+        region = "ap-northeast-2"
+      }
+    }
     # ## 추가
     # iam = {
     #   overtake = { ## 잠깐 햇갈려서 (1) 로 지정해둠
