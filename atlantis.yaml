@@ -11,11 +11,11 @@ projects:
       ]
       enabled: true
     apply_requirements: []
-    workflow: tf-plan-apply ## (2)
+    workflow: id ## (2)
 
 #### Workflows #####
 workflows:
-  tf-plan-apply: ## (3)
+  id: ## (3)
     plan: ## (4)
       steps:
         - init:
