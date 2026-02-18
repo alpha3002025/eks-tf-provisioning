@@ -98,3 +98,46 @@ resource "aws_ec2_tag" "karpenter_private_subnet_tag" {
   key         = "karpenter.sh/discovery"
   value       = var.cluster_name
 }
+
+## (1)
+variable "enable_karpenter" {
+  description = "Controls whether to deploy Karpenter resources"
+  type        = bool
+  default     = false
+}
+
+resource "helm_release" "karpenter" {
+  ## (2)
+  count = var.enable_karpenter ? 1 : 0 # <--- Karpenter 설치 여부 제어
+
+  namespace        = "karpenter"
+  create_namespace = true
+
+  name       = "karpenter"
+  repository = "oci://public.ecr.aws/karpenter"
+  chart      = "karpenter"
+  version    = "v0.32.1" # 호환되는 최신 버전 사용 (v1beta1 API 지원 버전)
+
+  # 필수 설정 값 주입
+  set {
+    name  = "settings.clusterName"
+    value = var.cluster_name
+  }
+
+  set {
+    name  = "settings.clusterEndpoint"
+    value = aws_eks_cluster.eks_cluster.endpoint
+  }
+
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = aws_iam_role.karpenter_controller.arn
+  }
+
+  # (선택) Spot Interruption 처리를 위한 Queue 설정
+  # set {
+  #   name  = "settings.interruptionQueueName"
+  #   value = var.cluster_name
+  # }
+}
+
