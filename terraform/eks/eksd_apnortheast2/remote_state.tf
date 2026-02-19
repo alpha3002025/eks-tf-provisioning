@@ -1,9 +1,9 @@
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   ## (1) 로컬
-  config = merge(var.remote_state.vpc.eksd_apnortheast2)
+  # config = merge(var.remote_state.vpc.eksd_apnortheast2)
   ## (2) 리모트
-  # config = merge(var.remote_state.vpc.eksd_apnortheast2, { "assume_role" = { "role_arn" = var.assume_role_arn } })
+  config = merge(var.remote_state.vpc.eksd_apnortheast2, { "assume_role" = { "role_arn" = var.assume_role_arn } })
 }
 
 
