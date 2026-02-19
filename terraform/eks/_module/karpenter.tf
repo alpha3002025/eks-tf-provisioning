@@ -103,7 +103,7 @@ resource "aws_ec2_tag" "karpenter_private_subnet_tag" {
 variable "enable_karpenter" {
   description = "Controls whether to deploy Karpenter resources"
   type        = bool
-  default     = false
+  default     = true
 }
 
 resource "helm_release" "karpenter" {
