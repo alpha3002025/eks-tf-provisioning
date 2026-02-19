@@ -43,7 +43,13 @@ resource "aws_iam_policy" "karpenter_controller" {
           "ec2:CreateLaunchTemplate",
           "ec2:CreateFleet",
           "ec2:DescribeSpotPriceHistory",
-          "pricing:GetProducts"
+          "pricing:GetProducts",
+          "iam:CreateInstanceProfile",
+          "iam:TagInstanceProfile",
+          "iam:AddRoleToInstanceProfile",
+          "iam:RemoveRoleFromInstanceProfile",
+          "iam:DeleteInstanceProfile",
+          "iam:GetInstanceProfile"
         ],
         "Effect" : "Allow",
         "Resource" : "*",
