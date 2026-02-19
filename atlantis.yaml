@@ -24,8 +24,8 @@ projects:
       enabled: true
     apply_requirements: []
     workflow: tf-plan-apply
-  - name: eks/eksd_apnortheast2/eksdapne2-nlgz
-    dir: terraform/eks/eksd_apnortheast2/eksdapne2-nlgz
+  - name: eks/eksd_apnortheast2/eksdapne2-eusc
+    dir: terraform/eks/eksd_apnortheast2/eksdapne2-eusc
     workspace: default
     terraform_version: 1.7.0
     autoplan:
