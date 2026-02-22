@@ -6,8 +6,8 @@ account_alias = "id"
 product = "eks"
 
 # Cluster information
-cluster_version = "1.34"            ## (3) 1.30 ➝ 1.34
-release_version = "1.34.0-20251215" ## (4) ➝ 1.34.0-20251215
+cluster_version = "1.33"            ## (3) 1.30 ➝ 1.33
+release_version = "1.33.2-20260120" ## (4) ➝ 1.33.2-20260120
 
 # Service CIDR
 service_ipv4_cidr = "172.20.0.0/16"
@@ -26,7 +26,7 @@ vpc_cni_version = "v1.19.2-eksbuild.1" ## (7) ➝ v1.19.2-eksbuild.1
 ## terraform/_module/addons.tf 에서 ebs_csi_driver 을 검색해보면 deploy_ebs_csi_driver 를 확인할 수 있다.
 # https://github.com/kubernetes-sigs/aws-ebs-csi-driver
 deploy_ebs_csi_driver  = false
-ebs_csi_driver_version = "v1.34.0-eksbuild.1"
+ebs_csi_driver_version = "v1.33.0-eksbuild.1"
 
 ## (9) 사용 x
 ## terraform/_module/addons.tf 에서 ebs_csi_driver 을 검색해보면 deploy_pod_identity_agent 를 확인할 수 있다.
@@ -46,7 +46,7 @@ node_group_configurations = [
   {
     name                = "ondemand_default" ## (11) ➝ ondemand_1_30_4-20241024 ➝ ondemand_default
     spot_enabled        = false
-    release_version     = "1.34.0-20251215" ## (12) ➝ 1.34.0-20251215
+    release_version     = "1.33.2-20260120" ## (12) ➝ 1.33.2-20260120
     disk_size           = 20
     ami_type            = "AL2023_x86_64_STANDARD"
     node_instance_types = ["t3.large"]
@@ -61,7 +61,7 @@ node_group_configurations = [
     name                = "spot_default" ## (13) spot_1_30_4-20241024 ➝ spot_default
     spot_enabled        = true
     disk_size           = 20
-    release_version     = "1.34.0-20251215" ## (14) 1.30.4-20241024 ➝ 1.34.0-20251215
+    release_version     = "1.33.2-20260120" ## (14) 1.30.4-20241024 ➝ 1.33.2-20260120
     ami_type            = "AL2023_x86_64_STANDARD"
     node_instance_types = ["t3.large"]
     node_min_size       = 0
