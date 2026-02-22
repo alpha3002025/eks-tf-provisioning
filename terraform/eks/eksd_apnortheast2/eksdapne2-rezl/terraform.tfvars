@@ -7,7 +7,7 @@ product = "eks"
 
 # Cluster information
 cluster_version = "1.34"            ## (3) 1.30 ➝ 1.34
-release_version = "1.34.4-20260210" ## (4) ➝ 1.34.4-20260210
+release_version = "1.34.1-20260115" ## (4) ➝ 1.34.1-20260115
 
 # Service CIDR
 service_ipv4_cidr = "172.20.0.0/16"
@@ -46,7 +46,7 @@ node_group_configurations = [
   {
     name                = "ondemand_default" ## (11) ➝ ondemand_1_30_4-20241024 ➝ ondemand_default
     spot_enabled        = false
-    release_version     = "1.34.4-20260210" ## (12) ➝ 1.34.4-20260210
+    release_version     = "1.34.1-20260115" ## (12) ➝ 1.34.1-20260115
     disk_size           = 20
     ami_type            = "AL2023_x86_64_STANDARD"
     node_instance_types = ["t3.large"]
@@ -61,7 +61,7 @@ node_group_configurations = [
     name                = "spot_default" ## (13) spot_1_30_4-20241024 ➝ spot_default
     spot_enabled        = true
     disk_size           = 20
-    release_version     = "1.34.4-20260210" ## (14) 1.30.4-20241024 ➝ 1.34.4-20260210
+    release_version     = "1.34.1-20260115" ## (14) 1.30.4-20241024 ➝ 1.34.1-20260115
     ami_type            = "AL2023_x86_64_STANDARD"
     node_instance_types = ["t3.large"]
     node_min_size       = 0
