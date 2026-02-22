@@ -43,13 +43,13 @@ resource "aws_iam_policy" "karpenter_controller" {
           "ec2:CreateLaunchTemplate",
           "ec2:CreateFleet",
           "ec2:DescribeSpotPriceHistory",
-          "pricing:GetProducts",
-          "iam:CreateInstanceProfile",
-          "iam:TagInstanceProfile",
-          "iam:AddRoleToInstanceProfile",
-          "iam:RemoveRoleFromInstanceProfile",
-          "iam:DeleteInstanceProfile",
-          "iam:GetInstanceProfile"
+          "pricing:GetProducts",               ## (1) (!!!업데이트) 강의 내용과 다르게 추가해줘야 했던 부분
+          "iam:CreateInstanceProfile",         ## (1) (!!!업데이트) 강의 내용과 다르게 추가해줘야 했던 부분
+          "iam:TagInstanceProfile",            ## (1) (!!!업데이트) 강의 내용과 다르게 추가해줘야 했던 부분
+          "iam:AddRoleToInstanceProfile",      ## (1) (!!!업데이트) 강의 내용과 다르게 추가해줘야 했던 부분
+          "iam:RemoveRoleFromInstanceProfile", ## (1) (!!!업데이트) 강의 내용과 다르게 추가해줘야 했던 부분
+          "iam:DeleteInstanceProfile",         ## (1) (!!!업데이트) 강의 내용과 다르게 추가해줘야 했던 부분
+          "iam:GetInstanceProfile"             ## (1) (!!!업데이트) 강의 내용과 다르게 추가해줘야 했던 부분
         ],
         "Effect" : "Allow",
         "Resource" : "*",

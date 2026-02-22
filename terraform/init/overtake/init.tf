@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "tfstate" {
-  bucket = "overtake-eks-apnortheast2-tfstate" ## (1)
+  bucket        = "overtake-eks-apnortheast2-tfstate" ## (1)
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_versioning" "versioning" {

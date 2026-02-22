@@ -3,7 +3,10 @@ data "terraform_remote_state" "vpc" {
   ## (1) 로컬
   # config = merge(var.remote_state.vpc.eksd_apnortheast2)
   ## (2) 리모트
-  config = merge(var.remote_state.vpc.eksd_apnortheast2, { "assume_role" = { "role_arn" = var.assume_role_arn } })
+  config = merge(
+    var.remote_state.vpc.eksd_apnortheast2,
+    var.assume_role_arn != "" ? { "assume_role" = { "role_arn" = var.assume_role_arn } } : {}
+  )
 }
 
 

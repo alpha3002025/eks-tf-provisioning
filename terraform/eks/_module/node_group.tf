@@ -4,7 +4,7 @@ locals {
 resource "aws_eks_node_group" "eks_node_group" {
   for_each        = { for node_config in var.node_group_configurations : node_config.name => node_config }
   cluster_name    = aws_eks_cluster.eks_cluster.name
-  node_group_name = "${var.cluster_name}-ng-${each.key}"
+  node_group_name = "${var.cluster_name}-ng-${each.key}" ## (1) karpenter-provisioner.yaml 내에서 참조하는 이름
   node_role_arn   = aws_iam_role.eks_node_group.arn
   subnet_ids      = var.private_subnets
 
